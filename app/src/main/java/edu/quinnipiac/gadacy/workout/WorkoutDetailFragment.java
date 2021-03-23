@@ -2,6 +2,7 @@ package edu.quinnipiac.gadacy.workout;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,6 +12,14 @@ import android.widget.TextView;
 
 public class WorkoutDetailFragment extends Fragment {
     private long workoutId;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            workoutId = savedInstanceState.getLong("workoutId");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +38,11 @@ public class WorkoutDetailFragment extends Fragment {
             TextView description = (TextView) view.findViewById(R.id.textDescription);
             description.setText(workout.getDesciption());
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putLong("workoutId", workoutId);
     }
 
     public void setWorkout(long id){
